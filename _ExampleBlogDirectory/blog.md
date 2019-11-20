@@ -1,5 +1,15 @@
 
+## Directions
+@date=2019-11-20
+@tags=blog,github,coding
 
+Blog articles are added in reverse chronological order (so put new content on the top of this file).
+
+* Start each article with ## Article title
+* Each article will get its own page linked off the homepage
+* Use @date and @tags to set those attributes. @tags will make a tag page for each tag /tags/tagName, and the articles with that tag will appear on that page.
+* @date is used in the rss feed and below the article title
+* Remove all the content below and rebuild to get rid of the articles.
 
 ## A very very simple blog
 @date=2019-11-20
