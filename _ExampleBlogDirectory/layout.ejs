@@ -1,11 +1,23 @@
 <html>
   <head>
+    <link data-rh="true" rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
     <link rel="stylesheet" href="/site.css" />
     <title><%=title%> - <%=siteTitle%></title>
   </head>
   <body>
     <h1><a href="/"><%=siteTitle%></a></h1>
     <%-''+body%>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-600316-25"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-BLABLA');
+    </script>
+
   </body>
 
 </html>

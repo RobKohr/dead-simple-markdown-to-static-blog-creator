@@ -38,21 +38,30 @@ contents.forEach((line, index) => {
     currentArticle.text += line + '\n';
     line = linkifyHeader(line);
   } else {
+    let isSpecialLine = false;
     if (line.includes('@date=')) {
       currentArticle.date = line.replace('@date=', '');
       line = `<div class="date">${currentArticle.date}</div>`;
+      isSpecialLine = true;
     }
 
     if (line.includes('@tags=')) {
+      isSpecialLine = true;
       currentArticle.tags = line.replace('@tags=', '').split(',').map(tag=>tag.trim());
       allTags = allTags.concat(currentArticle.tags);
+      currentArticle.rssDescription += ' #'+currentArticle.tags.join(' #')+' ';
+
       tags = currentArticle.tags.map(tag => {
         return `<a class="tag" href="/tags/${tag}">${tag}</a> `;
       });
       line = '<p class="tags">Tags: ' + tags.join(' ') + '</p>';
     }
+
     if (currentArticle) {
       currentArticle.text += line + '\n';
+      if(!isSpecialLine){
+        currentArticle.rssDescription+=' '+line+' ';
+      }
     }
     if (line) {
       homeLineCount++;
@@ -138,7 +147,8 @@ function linkifyHeader(line) {
 
 function startArticle(line) {
   const article = {
-    title: titleFromLine(line)
+    title: titleFromLine(line),
+    rssDescription: titleFromLine(line)
   };
   article.link = titleToArticleLink(article.title);
   article.text = '';

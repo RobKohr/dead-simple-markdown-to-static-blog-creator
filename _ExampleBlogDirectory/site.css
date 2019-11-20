@@ -2,3 +2,7 @@ img{
   max-width:90vw;
   max-height:90vw;
 }
+#main img{
+  max-height: 400px;
+  max-width: 300px;
+}

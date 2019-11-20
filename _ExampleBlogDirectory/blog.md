@@ -10,6 +10,9 @@ Blog articles are added in reverse chronological order (so put new content on th
 * Use @date and @tags to set those attributes. @tags will make a tag page for each tag /tags/tagName, and the articles with that tag will appear on that page.
 * @date is used in the rss feed and below the article title
 * Remove all the content below and rebuild to get rid of the articles.
+* Put images in the image directory and link to them like so:
+  * ![Submarine Playhouse](images/2019-04-24&#32;submarine&#32;playhouse.jpg)
+
 
 ## A very very simple blog
 @date=2019-11-20
@@ -48,10 +51,10 @@ Stack Overflow is like a magic wish granting genie, if all your wishes are const
 @date=2019-04-24
 @tags=concept-art,govt
 
-![](images/2019-04-24&#32;Govt&#32;law&#32;monitoring&#32;site.jpg)
+![Govt law monitoring site](images/2019-04-24&#32;Govt&#32;law&#32;monitoring&#32;site.jpg)
 
 ## submarine playhouse
 @date=2019-04-24
 @tags=concept-art,playhouse
 
-![](images/2019-04-24&#32;submarine&#32;playhouse.jpg)
+![Submarine playhouse](images/2019-04-24&#32;submarine&#32;playhouse.jpg)

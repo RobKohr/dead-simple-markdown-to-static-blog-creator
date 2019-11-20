@@ -8,9 +8,12 @@
   <% for(let i = 0 ; i < articles.length; i++) { const article = articles[i]; %>
   <item>
     <title><%-article.title%></title>
-    <link><%-siteBaseUrl + article.link%></link>
-    <description><%-article.html%></description>
-    <pubDate><%-article.date%></pubDate>
+    <link><%-siteBaseUrl + (encodeURI(article.link))%></link>
+    <description><%-article.rssDescription%></description>
+    <content:encoded xmlns:content="http://purl.org/rss/1.0/modules/content/"><![CDATA[
+    <%-article.html%>
+    ]]></content:encoded>
+    <pubDate><%-(new Date('2019-11-20')).toUTCString()%></pubDate>
     <% for(let j = 0; j < article.tags.length; j++){%>
       <category domain="<%-siteBaseUrl+'/tags/'+article.tags[j]%>"><%-article.tags[j]%></category>
     <%}%>
