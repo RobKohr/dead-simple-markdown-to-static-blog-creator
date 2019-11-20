@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/RobKohr/codingindreams.com/issues"
   },
-  "homepage": "https://github.com/RobKohr/codingindreams.com#readme"
+  "homepage": "https://github.com/RobKohr/codingindreams.com#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "marked": "^0.7.0"
+  }
 }
