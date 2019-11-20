@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title><%-siteTitle%></title>
+  <link><%-siteBaseUrl%></link>
+  <description><%-siteDescription%></description>
+  <% for(let i = 0 ; i < articles.length; i++) { const article = articles[i]; %>
+  <item>
+    <title><%-article.title%></title>
+    <link><%-siteBaseUrl + article.link%></link>
+    <description><%-article.html%></description>
+    <pubDate><%-article.date%></pubDate>
+    <% for(let j = 0; j < article.tags.length; j++){%>
+      <category domain="<%-siteBaseUrl+'/tags/'+article.tags[j]%>"><%-article.tags[j]%></category>
+    <%}%>
+  </item>
+  <% } %>
+</channel>
+
+</rss>

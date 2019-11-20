@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "ext": "js,json,ejs,md,css",
+  "ignore": [
+    "public"
+  ]
+}

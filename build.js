@@ -3,6 +3,7 @@ const { execSync } = require('child_process');
 const marked = require('marked');
 const ejs = require('ejs');
 
+
 const config = require('./config/local.json');
 const blogPath = config.source;
 const outputPath = './public';
@@ -15,7 +16,10 @@ function getFile(path) {
   return fs.readFileSync(path, 'utf8');
 }
 
-let contents = getFile(outputPath + '/blog.md');
+
+let contents = getFile(outputPath + '/blog.md')
+//fix all image paths to be based on root of the site
+contents = contents.split('(images/').join('(/images/');
 let currentArticle = null;
 const articles = [];
 contents = contents.split('\n');
@@ -34,8 +38,13 @@ contents.forEach((line, index) => {
     currentArticle.text += line + '\n';
     line = linkifyHeader(line);
   } else {
+    if (line.includes('@date=')) {
+      currentArticle.date = line.replace('@date=', '');
+      line = `<div class="date">${currentArticle.date}</div>`;
+    }
+
     if (line.includes('@tags=')) {
-      currentArticle.tags = line.replace('@tags=', '').split(',');
+      currentArticle.tags = line.replace('@tags=', '').split(',').map(tag=>tag.trim());
       allTags = allTags.concat(currentArticle.tags);
       tags = currentArticle.tags.map(tag => {
         return `<a class="tag" href="/tags/${tag}">${tag}</a> `;
@@ -74,13 +83,17 @@ marked.setOptions({
 });
 
 let template = ejs.compile(getFile(blogPath+'/layout.ejs'));
-const index = template({ title: 'home', body: '<div id="main">' + marked(homeText) + '</div>' });
+let rssTemplate = ejs.compile(getFile('./rss.ejs'));
+
+
+const index = template({ title: 'home', body: '<div id="main">' + marked(homeText) + '</div>', ...config});
 fs.writeFileSync(outputPath + '/index.html', index);
 
 articles.forEach(article => {
-  const articleHtml = template({ title: article.title, body: '<div id="article">' + marked(article.text) + '</div>' });
+  article.html = marked(article.text);
+  const articlePage = template({ title: article.title, body: '<div id="article">' + article.html+ '</div>', ...config });
   execSync(`mkdir public${article.link}`);
-  fs.writeFileSync(`public${article.link}` + '/index.html', articleHtml);
+  fs.writeFileSync(`public${article.link}` + '/index.html', articlePage);
 });
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
@@ -98,10 +111,14 @@ allTags.filter(onlyUnique).forEach(tag => {
     tagPage += '\n' + linkifyHeader(article.title) + '\n';
     tagPage += '\n'+article.text.split('\n').slice(1,8).join('\n')+'\n';
   });
-  const tagPageHtml = template({ title: 'tagged ' + tag, body: '<div id="tags">' + marked(tagPage) + '</div>' });
+  const tagPageHtml = template({ title: 'tagged ' + tag, body: '<div id="tags">' + marked(tagPage) + '</div>', ...config});
   execSync(`mkdir ./public/tags/${tag}`);
   fs.writeFileSync(`./public/tags/${tag}/index.html`, tagPageHtml);
 });
+
+const rss = rssTemplate({ articles, ...config });
+fs.writeFileSync(outputPath + '/rss.xml', rss);
+
 
 function endArticle() {
   articles.push(currentArticle);
@@ -138,10 +155,3 @@ function titleToArticleLink(title) {
       .join('-')
   );
 }
-
-const express = require('express');
-const app = express();
-const port = config.port;
-app.use(express.static('public'));
-
-app.listen(port, () => console.log(`Example app listening on port http://127.0.0.1:${port}`));

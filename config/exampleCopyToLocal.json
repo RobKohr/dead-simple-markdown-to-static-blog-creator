@@ -1,4 +1,7 @@
 {
-  "source":"./Blog",
-  "port":"2121"
+  "source":"/Users/rokohr/Dropbox/_Notebook/Blog",
+  "port":"2121",
+  "siteTitle": "Ten Ton Creations",
+  "siteBaseUrl": "http://TenTonCreations.com",
+  "siteDescription": "A blog tracking things I have created"
 }
