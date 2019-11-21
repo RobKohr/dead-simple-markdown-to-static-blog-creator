@@ -1,8 +1,28 @@
-img{
-  max-width:90vw;
-  max-height:90vw;
+body {
+  max-width: 700px;
 }
-#main img{
+a {
+  text-decoration: none;
+}
+
+#logo {
+  width: 110px;
+  top: -8px;
+  position: relative;
+}
+
+img {
+  max-width: 90vw;
+  max-height: 90vw;
+}
+
+#main img {
   max-height: 400px;
   max-width: 300px;
+}
+
+#navlist li {
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
 }

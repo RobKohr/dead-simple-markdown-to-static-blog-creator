@@ -1,23 +1,33 @@
 <html>
-  <head>
-    <link data-rh="true" rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"/>
-    <link rel="stylesheet" href="/site.css" />
-    <title><%=title%> - <%=siteTitle%></title>
-  </head>
-  <body>
-    <h1><a href="/"><%=siteTitle%></a></h1>
-    <%-''+body%>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-600316-25"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<head>
+  <link data-rh="true" rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
+  <link rel="stylesheet" href="/site.css" />
+  <title><%=title%> - <%=siteTitle%></title>
+</head>
 
-      gtag('config', 'UA-BLABLA');
-    </script>
+<body>
+  <h1><a href="/"><img src="/images/10-Ton.jpg" id="logo"><%=siteTitle%></a></h1>
+  <div id="navcontainer">
+    <ul id="navlist">
+      <li><a href="/tags">Tag list</a></li>
+      <li><a href="http://twitter.com/TenTonCreations">Twitter @TenTonCreations</a></li>
+      <li><a href="/tags/launched/">Completed Projects</a><li>
+    </ul>
+  </div>
 
-  </body>
+  <%-''+body%>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-600316-25"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-600316-25');
+  </script>
+
+</body>
 
 </html>

@@ -91,16 +91,17 @@ marked.setOptions({
   xhtml: false
 });
 
-let template = ejs.compile(getFile(blogPath+'/layout.ejs'));
+let mainTemplate = ejs.compile(getFile(blogPath+'/layout.ejs'));
 let rssTemplate = ejs.compile(getFile('./rss.ejs'));
+let tagTemplate = ejs.compile(getFile('./tags.ejs'));
 
 
-const index = template({ title: 'home', body: '<div id="main">' + marked(homeText) + '</div>', ...config});
+const index = mainTemplate({ title: 'home', body: '<div id="main">' + marked(homeText) + '</div>', ...config});
 fs.writeFileSync(outputPath + '/index.html', index);
 
 articles.forEach(article => {
   article.html = marked(article.text);
-  const articlePage = template({ title: article.title, body: '<div id="article">' + article.html+ '</div>', ...config });
+  const articlePage = mainTemplate({ title: article.title, body: '<div id="article">' + article.html+ '</div>', ...config });
   execSync(`mkdir public${article.link}`);
   fs.writeFileSync(`public${article.link}` + '/index.html', articlePage);
 });
@@ -108,7 +109,12 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
-allTags.filter(onlyUnique).forEach(tag => {
+allTags = allTags.filter(onlyUnique);
+const tagsBody = tagTemplate({ tags:allTags, ...config });
+const tagsPage = mainTemplate({ title: 'tags', body: '<div id="tags">' + tagsBody + '</div>', ...config});
+fs.writeFileSync(outputPath + '/tags/index.html', tagsPage);
+
+allTags.forEach(tag => {
   const matchedArticles = [];
   let tagPage = '';
   articles.forEach(article => {
@@ -119,8 +125,9 @@ allTags.filter(onlyUnique).forEach(tag => {
   matchedArticles.forEach(article => {
     tagPage += '\n' + linkifyHeader(article.title) + '\n';
     tagPage += '\n'+article.text.split('\n').slice(1,8).join('\n')+'\n';
+    tagPage += `\n [Read More](${article.link})\n`
   });
-  const tagPageHtml = template({ title: 'tagged ' + tag, body: '<div id="tags">' + marked(tagPage) + '</div>', ...config});
+  const tagPageHtml = mainTemplate({ title: 'tagged ' + tag, body: '<div id="tags">' + marked(tagPage) + '</div>', ...config});
   execSync(`mkdir ./public/tags/${tag}`);
   fs.writeFileSync(`./public/tags/${tag}/index.html`, tagPageHtml);
 });
