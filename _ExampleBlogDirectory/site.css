@@ -5,6 +5,10 @@ a {
   text-decoration: none;
 }
 
+li a, a.tag{
+
+}
+
 #logo {
   width: 110px;
   top: -8px;
