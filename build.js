@@ -9,7 +9,12 @@ const blogPath = config.source;
 const outputPath = './public';
 execSync('rm -rf public/*');
 execSync(`cp -R ${blogPath}/* public/`);
-execSync(`mkdir public/articles/`);
+execSync(`mkdir public/a/`);
+// I reduced articles to just a, and this is to handle backwards
+// compatability for links already out there. Isn't needed for others.
+if(config.siteTitle==='Ten-Ton Creations'){
+  execSync(`ln -s public/a/ public/articles`);
+}
 execSync(`mkdir public/tags`);
 
 function getFile(path) {
@@ -116,7 +121,7 @@ fs.writeFileSync(outputPath + '/tags/index.html', tagsPage);
 
 allTags.forEach(tag => {
   const matchedArticles = [];
-  let tagPage = '';
+  let tagPage = `<h2>Items tagged with <em>${tag}</em></h2>\n\n`;
   articles.forEach(article => {
     if (article.tags && article.tags.includes(tag)) {
       matchedArticles.push(article);
@@ -165,7 +170,7 @@ function startArticle(line) {
 
 function titleToArticleLink(title) {
   return (
-    '/articles/' +
+    '/a/' +
     title
       .trim()
       .split(' ')

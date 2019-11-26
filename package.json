@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "buildAndServe": "node build.js; node server.js",
-    "build": "node build.js"
+    "buildAndServe": "node build.js; node server.js; open http://127.0.0.1:2121",
+    "build": "node build.js",
+    "serve": "node server.js; open http://127.0.0.1:2121"
   },
   "repository": {
     "type": "git",

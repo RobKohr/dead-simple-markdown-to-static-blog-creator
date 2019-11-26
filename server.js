@@ -1,4 +1,6 @@
 const express = require('express');
+const config = require('./config/local.json');
+
 const app = express();
 const port = config.port;
 app.use(express.static('public'));
