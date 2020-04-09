@@ -1,3 +1,5 @@
+View this file in raw source to see how things are formatted
+
 
 ## Directions
 @date=2019-11-20
