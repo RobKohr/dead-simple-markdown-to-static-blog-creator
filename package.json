@@ -22,7 +22,7 @@
   "dependencies": {
     "child_process": "^1.0.2",
     "ejs": "^2.7.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "marked": "^0.7.0",
     "node-sass": "^4.13.0"
   }
